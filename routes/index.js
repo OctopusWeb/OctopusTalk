@@ -13,10 +13,6 @@ io.on('connection', function(socket){
 	    io.emit('chat message', msg);
 	});
 });
-//
-//http.listen(2000, function(){
-//	console.log('listening on *:2000');
-//});
 
 module.exports = app;
 //
