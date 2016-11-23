@@ -1,9 +1,38 @@
 var express = require('express');
-var router = express.Router();
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+app.get('/', function(req, res, next) {
+  res.render('index');
 });
 
-module.exports = router;
+io.on('connection', function(socket){
+	socket.on('chat message', function(msg){
+	    io.emit('chat message', msg);
+	});
+});
+//
+//http.listen(2000, function(){
+//	console.log('listening on *:2000');
+//});
+
+module.exports = app;
+//
+//var app = require('express')();
+//
+//
+//app.get('/', function(req, res){
+//res.sendFile(__dirname + '/index.html');
+//});
+//
+//io.on('connection', function(socket){
+//socket.on('chat message', function(msg){
+//  io.emit('chat message', msg);
+//});
+//});
+//
+//http.listen(3000, function(){
+//console.log('listening on *:3000');
+//});
